@@ -13,239 +13,322 @@
 <pre id="eventSpan"></pre>
 
 <script type="text/javascript">
+    var network;
+    var allNodes;
+    var highlightActive = false;
 
-    // create a network
-    var container = document.getElementById('network');
+    function redrawAll() {
+        // create a network
+        var container = document.getElementById('network');
 
-    // these are all options in full.
-    var options = {
-        edges:{
-            arrows: {
-                to:     {enabled: true,  scaleFactor:1, type:'arrow'},
-                middle: {enabled: false, scaleFactor:1, type:'arrow'},
-                from:   {enabled: false, scaleFactor:1, type:'arrow'}
-            },
-            arrowStrikethrough: true,
-            chosen: true,
-            color: {
-                color:'#848484',
-                highlight:'#848484',
-                hover: '#848484',
-                inherit: 'from',
-                opacity:1.0
-            },
-            dashes: false,
-            font: {
-                color: '#343434',
-                size: 14, // px
-                face: 'arial',
-                background: 'none',
-                strokeWidth: 2, // px
-                strokeColor: '#ffffff',
-                align: 'horizontal',
-                multi: false,
-                vadjust: 0,
-                bold: {
+        // these are all options in full.
+        var options = {
+            edges: {
+                arrows: {
+                    to: {enabled: true, scaleFactor: 1, type: 'arrow'},
+                    middle: {enabled: false, scaleFactor: 1, type: 'arrow'},
+                    from: {enabled: false, scaleFactor: 1, type: 'arrow'}
+                },
+                arrowStrikethrough: true,
+                chosen: true,
+                color: {
+                    color: '#848484',
+                    highlight: '#848484',
+                    hover: '#848484',
+                    inherit: 'from',
+                    opacity: 1.0
+                },
+                dashes: false,
+                font: {
                     color: '#343434',
                     size: 14, // px
                     face: 'arial',
+                    background: 'none',
+                    strokeWidth: 2, // px
+                    strokeColor: '#ffffff',
+                    align: 'horizontal',
+                    multi: false,
                     vadjust: 0,
-                    mod: 'bold'
-                },
-                ital: {
-                    color: '#343434',
-                    size: 14, // px
-                    face: 'arial',
-                    vadjust: 0,
-                    mod: 'italic',
-                },
-                boldital: {
-                    color: '#343434',
-                    size: 14, // px
-                    face: 'arial',
-                    vadjust: 0,
-                    mod: 'bold italic'
-                },
-                mono: {
-                    color: '#343434',
-                    size: 15, // px
-                    face: 'courier new',
-                    vadjust: 2,
-                    mod: ''
-                }
-            },
-            hidden: false,
-            hoverWidth: 1.5,
-            label: undefined,
-            labelHighlightBold: true,
-            length: undefined,
-            physics: true,
-            scaling:{
-                min: 1,
-                max: 15,
-                label: {
-                    enabled: true,
-                    min: 14,
-                    max: 30,
-                    maxVisible: 30,
-                    drawThreshold: 5
-                },
-                customScalingFunction: function (min,max,total,value) {
-                    if (max === min) {
-                        return 0.5;
+                    bold: {
+                        color: '#343434',
+                        size: 14, // px
+                        face: 'arial',
+                        vadjust: 0,
+                        mod: 'bold'
+                    },
+                    ital: {
+                        color: '#343434',
+                        size: 14, // px
+                        face: 'arial',
+                        vadjust: 0,
+                        mod: 'italic'
+                    },
+                    boldital: {
+                        color: '#343434',
+                        size: 14, // px
+                        face: 'arial',
+                        vadjust: 0,
+                        mod: 'bold italic'
+                    },
+                    mono: {
+                        color: '#343434',
+                        size: 15, // px
+                        face: 'courier new',
+                        vadjust: 2,
+                        mod: ''
                     }
-                    else {
-                        var scale = 1 / (max - min);
-                        return Math.max(0,(value - min)*scale);
+                },
+                hidden: false,
+                hoverWidth: 1.5,
+                label: undefined,
+                labelHighlightBold: true,
+                length: undefined,
+                physics: true,
+                scaling: {
+                    min: 1,
+                    max: 15,
+                    label: {
+                        enabled: true,
+                        min: 14,
+                        max: 30,
+                        maxVisible: 30,
+                        drawThreshold: 5
+                    },
+                    customScalingFunction: function (min, max, total, value) {
+                        if (max === min) {
+                            return 0.5;
+                        }
+                        else {
+                            var scale = 1 / (max - min);
+                            return Math.max(0, (value - min) * scale);
+                        }
                     }
-                }
-            },
-            selectionWidth: 1,
-            selfReferenceSize:20,
-            shadow:{
-                enabled: false,
-                color: 'rgba(0,0,0,0.5)',
-                size:10,
-                x:5,
-                y:5
-            },
-            smooth: {
-                enabled: true,
-                type: "dynamic",
-                roundness: 0.5
-            },
-            title:undefined,
-            value: undefined,
-            width: 1,
-            widthConstraint: false
-        },
-        nodes:{
-            borderWidth: 1,
-            borderWidthSelected: 2,
-            brokenImage:undefined,
-            chosen: true,
-            fixed: {
-                x:false,
-                y:false
-            },
-            font: {
-                color: '#dddddd',
-                size: 14, // px
-                face: 'arial',
-                background: 'none',
-                strokeWidth: 0, // px
-                strokeColor: '#ffffff',
-                align: 'center',
-                multi: false,
-                vadjust: 0,
-                bold: {
-                    color: '#343434',
-                    size: 14, // px
-                    face: 'arial',
-                    vadjust: 0,
-                    mod: 'bold'
                 },
-                ital: {
-                    color: '#343434',
-                    size: 14, // px
-                    face: 'arial',
-                    vadjust: 0,
-                    mod: 'italic',
-                },
-                boldital: {
-                    color: '#343434',
-                    size: 14, // px
-                    face: 'arial',
-                    vadjust: 0,
-                    mod: 'bold italic'
-                },
-                mono: {
-                    color: '#343434',
-                    size: 15, // px
-                    face: 'courier new',
-                    vadjust: 2,
-                    mod: ''
-                }
-            },
-            group: undefined,
-            heightConstraint: false,
-            hidden: false,
-            icon: {
-                face: 'FontAwesome',
-                code: undefined,
-                size: 50,  //50,
-                color:'#2B7CE9'
-            },
-            image: undefined,
-            label: undefined,
-            labelHighlightBold: true,
-            level: undefined,
-            mass: 1,
-            physics: true,
-            scaling: {
-                min: 10,
-                max: 30,
-                label: {
+                selectionWidth: 1,
+                selfReferenceSize: 20,
+                shadow: {
                     enabled: false,
-                    min: 14,
-                    max: 30,
-                    maxVisible: 30,
-                    drawThreshold: 5
+                    color: 'rgba(0,0,0,0.5)',
+                    size: 10,
+                    x: 5,
+                    y: 5
                 },
-                customScalingFunction: function (min,max,total,value) {
-                    if (max === min) {
-                        return 0.5;
+                smooth: {
+                    enabled: true,
+                    type: "dynamic",
+                    roundness: 0.5
+                },
+                title: undefined,
+                value: undefined,
+                width: 1,
+                widthConstraint: false
+            },
+            nodes: {
+                borderWidth: 1,
+                borderWidthSelected: 2,
+                brokenImage: undefined,
+                chosen: true,
+                fixed: {
+                    x: false,
+                    y: false
+                },
+                font: {
+                    color: '#dddddd',
+                    size: 14, // px
+                    face: 'arial',
+                    background: 'none',
+                    strokeWidth: 0, // px
+                    strokeColor: '#ffffff',
+                    align: 'center',
+                    multi: false,
+                    vadjust: 0,
+                    bold: {
+                        color: '#343434',
+                        size: 14, // px
+                        face: 'arial',
+                        vadjust: 0,
+                        mod: 'bold'
+                    },
+                    ital: {
+                        color: '#343434',
+                        size: 14, // px
+                        face: 'arial',
+                        vadjust: 0,
+                        mod: 'italic'
+                    },
+                    boldital: {
+                        color: '#343434',
+                        size: 14, // px
+                        face: 'arial',
+                        vadjust: 0,
+                        mod: 'bold italic'
+                    },
+                    mono: {
+                        color: '#343434',
+                        size: 15, // px
+                        face: 'courier new',
+                        vadjust: 2,
+                        mod: ''
                     }
-                    else {
-                        var scale = 1 / (max - min);
-                        return Math.max(0,(value - min)*scale);
+                },
+                group: undefined,
+                heightConstraint: false,
+                hidden: false,
+                icon: {
+                    face: 'FontAwesome',
+                    code: undefined,
+                    size: 50,  //50,
+                    color: '#2B7CE9'
+                },
+                image: undefined,
+                label: undefined,
+                labelHighlightBold: true,
+                level: undefined,
+                mass: 1,
+                physics: true,
+                scaling: {
+                    min: 10,
+                    max: 30,
+                    label: {
+                        enabled: false,
+                        min: 14,
+                        max: 30,
+                        maxVisible: 30,
+                        drawThreshold: 5
+                    },
+                    customScalingFunction: function (min, max, total, value) {
+                        if (max === min) {
+                            return 0.5;
+                        }
+                        else {
+                            var scale = 1 / (max - min);
+                            return Math.max(0, (value - min) * scale);
+                        }
+                    }
+                },
+                shadow: {
+                    enabled: false,
+                    color: 'rgba(0,0,0,0.5)',
+                    size: 10,
+                    x: 5,
+                    y: 5
+                },
+                shape: 'dot',
+                shapeProperties: {
+                    borderDashes: false, // only for borders
+                    borderRadius: 6,     // only for box shape
+                    interpolation: false,  // only for image and circularImage shapes
+                    useImageSize: false,  // only for image and circularImage shapes
+                    useBorderWithImage: false  // only for image shape
+                },
+                size: 25,
+                title: undefined,
+                value: undefined,
+                widthConstraint: false,
+                x: undefined,
+                y: undefined
+            }
+        };
+
+        // initialize your network!
+        network = new vis.Network(container, data, options);
+
+        // get a JSON object
+        allNodes = nodes.get({returnType:"Object"});
+
+        network.on("click", neighbourhoodHighlight);
+
+
+        network.on("startStabilizing", function () {
+            document.getElementById('eventSpan').innerHTML = '<h3>Starting Stabilization</h3>';
+            console.log("started")
+        });
+        network.on("stabilizationProgress", function (params) {
+            document.getElementById('eventSpan').innerHTML = '<h3>Stabilization progress</h3>' + JSON.stringify(params, null, 4);
+            console.log("progress:",params);
+        });
+        network.on("stabilizationIterationsDone", function () {
+            document.getElementById('eventSpan').innerHTML = '<h3>Stabilization iterations complete</h3>';
+            console.log("finished stabilization interations");
+        });
+        network.on("stabilized", function (params) {
+            document.getElementById('eventSpan').innerHTML = '<h3>Stabilized!</h3>' + JSON.stringify(params, null, 4);
+            console.log("stabilized!", params);
+        });
+    }
+
+    function neighbourhoodHighlight(params) {
+        var i, nodeId;
+        // if something is selected:
+        if (params.nodes.length > 0) {
+            highlightActive = true;
+            var selectedNode = params.nodes[0];
+
+            // mark all nodes as hard to read.
+            for (nodeId in allNodes) {
+                if (allNodes.hasOwnProperty(nodeId)) {
+                    allNodes[nodeId].color = 'rgba(200,200,200,0.5)';
+                    if (allNodes[nodeId].hiddenLabel === undefined) {
+                        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+                        allNodes[nodeId].label = undefined;
                     }
                 }
-            },
-            shadow:{
-                enabled: false,
-                color: 'rgba(0,0,0,0.5)',
-                size:10,
-                x:5,
-                y:5
-            },
-            shape: 'dot',
-            shapeProperties: {
-                borderDashes: false, // only for borders
-                borderRadius: 6,     // only for box shape
-                interpolation: false,  // only for image and circularImage shapes
-                useImageSize: false,  // only for image and circularImage shapes
-                useBorderWithImage: false  // only for image shape
-            },
-            size: 25,
-            title: undefined,
-            value: undefined,
-            widthConstraint: false,
-            x: undefined,
-            y: undefined
+            }
+
+            var allConnectedNodes = findAllParents(selectedNode);
+            allConnectedNodes.push(selectedNode);
+
+            // Reset color of all parent nodes
+            for (i = 0; i < allConnectedNodes.length; i++) {
+                allNodes[allConnectedNodes[i]].color = undefined;
+                if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
+                    allNodes[allConnectedNodes[i]].label = allNodes[allConnectedNodes[i]].hiddenLabel;
+                    allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
+                }
+            }
         }
-    };
+        else if (highlightActive === true) {
+            // reset all nodes
+            for (nodeId in allNodes) {
+                if (allNodes.hasOwnProperty(nodeId)) {
+                    allNodes[nodeId].color = undefined;
+                    if (allNodes[nodeId].hiddenLabel !== undefined) {
+                        allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
+                        allNodes[nodeId].hiddenLabel = undefined;
+                    }
+                }
+            }
+            highlightActive = false
+        }
 
-    // initialize your network!
-    var network = new vis.Network(container, data, options);
+        // Update nodes
+        var updateArray = [];
+        for (nodeId in allNodes) {
+            if (allNodes.hasOwnProperty(nodeId)) {
+                updateArray.push(allNodes[nodeId]);
+            }
+        }
+        nodes.update(updateArray);
+    }
 
+    function findAllParents(node) {
+        var edges = network.getConnectedEdges(node);
+        var nodes = [];
 
-    network.on("startStabilizing", function (params) {
-        document.getElementById('eventSpan').innerHTML = '<h3>Starting Stabilization</h3>';
-        console.log("started")
-    });
-    network.on("stabilizationProgress", function (params) {
-        document.getElementById('eventSpan').innerHTML = '<h3>Stabilization progress</h3>' + JSON.stringify(params, null, 4);
-        console.log("progress:",params);
-    });
-    network.on("stabilizationIterationsDone", function (params) {
-        document.getElementById('eventSpan').innerHTML = '<h3>Stabilization iterations complete</h3>';
-        console.log("finished stabilization interations");
-    });
-    network.on("stabilized", function (params) {
-        document.getElementById('eventSpan').innerHTML = '<h3>Stabilized!</h3>' + JSON.stringify(params, null, 4);
-        console.log("stabilized!", params);
-    });
+        // Recursively find all nodes that are connected to the node passed as parameter
+        edges.forEach(function(item) {
+            var connectedNodes = network.getConnectedNodes(item);
+            if (connectedNodes[0] == node) {
+                var directParent = connectedNodes[1];
+                nodes.push(directParent);
+                nodes = nodes.concat(findAllParents(directParent));
+            }
+        });
+
+        return nodes
+    }
+
+    redrawAll();
 
 </script>
 </body>
