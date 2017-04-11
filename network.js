@@ -20,6 +20,8 @@ var nodes = new vis.DataSet([
     {id: 'Weißbierbrauerei Hopf GmbH',      label: 'Weißbierbrauerei Hopf GmbH',      group: 'Heineken N.V.'},
     {id: 'Paulaner',                        label: 'Paulaner',                        group: 'Heineken N.V.'},
     {id: 'Paulaner Brauerei GmbH & Co. KG', label: 'Paulaner Brauerei GmbH & Co. KG', group: 'Heineken N.V.'},
+    {id: 'Pfungstädter',                    label: 'Pfungstädter',                    group: 'Pfungstädter Brauerei Hildebrand GmbH & Co. KG'},
+    {id: 'Pfungstädter Brauerei Hildebrand GmbH & Co. KG', label: 'Pfungstädter Brauerei Hildebrand GmbH & Co. KG', group: 'Pfungstädter Brauerei Hildebrand GmbH & Co. KG'},                     
     {id: 'Schörghuber Unternehmensgruppe',  label: 'Schörghuber Unternehmensgruppe'},
     {id: 'Thurn und Taxis',                 label: 'Thurn und Taxis',                 group: 'Heineken N.V.'},
     {id: 'Weldebräu',                       label: 'Weldebräu',                       group: 'Weldebräu'},
@@ -45,6 +47,7 @@ var edges = new vis.DataSet([
     {from: 'Paulaner', to: 'Paulaner Brauerei GmbH & Co. KG'},
     {from: 'Paulaner Brauerei GmbH & Co. KG', to: 'Brau Holding International'},
     {from: 'Paulaner Brauerei GmbH & Co. KG', to: 'Schörghuber Unternehmensgruppe'},
+    {from: 'Pfungstädter', to: 'Pfungstädter Brauerei Hildebrand GmbH & Co. KG'},
     {from: 'Thurn und Taxis', to: 'Paulaner Brauerei GmbH & Co. KG'},
 ]);
 
