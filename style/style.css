@@ -11,3 +11,18 @@ body {
     border: 1px solid #444444;
     background-color: #222222;
 }
+
+#footer {
+    position:fixed;
+    left:0;
+    bottom:0;
+    height:30px;
+    width:100%;
+    background:#222222;
+    padding: 5px 15px;
+    border-top: 1px solid #888888;
+}
+
+#footer a[href] {
+    color: #888888;
+}
