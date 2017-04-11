@@ -5,21 +5,22 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
-        #mynetwork {
-            width: 95%;
+        #network {
+            width: auto;
             height: 80%;
             border: 1px solid lightgray;
         }
     </style>
+    <title>BeerCorpGraph</title>
 </head>
 <body>
-<div id="mynetwork"></div>
+<div id="network"></div>
 <pre id="eventSpan"></pre>
 
 <script type="text/javascript">
 
     // create a network
-    var container = document.getElementById('mynetwork');
+    var container = document.getElementById('network');
 
     // these are all options in full.
     var options = {
