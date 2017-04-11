@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="39.348282mm"
+   height="39.348282mm"
+   viewBox="0 0 39.348282 39.348282"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.1 r"
+   sodipodi:docname="generic.svg"
+   inkscape:export-filename="/home/matthias/TestProjects/BeerCorpGraph/images/beer/generic.png"
+   inkscape:export-xdpi="41.310001"
+   inkscape:export-ydpi="41.310001">
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect4489"
+       is_visible="true"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect4489-3"
+       is_visible="true"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="-32.728262"
+     inkscape:cy="35.037269"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="2560"
+     inkscape:window-height="1376"
+     inkscape:window-x="3200"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-20.861663,-76.999702)">
+    <circle
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.70528966;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path4485"
+       cx="40.535805"
+       cy="96.673843"
+       r="19.321497" />
+    <g
+       id="g4522">
+      <g
+         transform="translate(0.23409384,-1.0312629)"
+         id="g4511">
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 40.301707,81.222842 c -0.818684,0 -1.638161,0 -2.047503,0.204605 -0.409342,0.204604 -0.409342,0.613841 -0.180849,0.818829 0.228493,0.204988 0.68528,0.204988 0.897729,1.14192 0.21245,0.936932 0.180947,2.811445 -0.608438,4.173591 -0.789385,1.362146 -2.337026,2.212621 -3.110951,6.56489 -0.773926,4.35227 -0.773926,12.206483 -0.582706,16.133723 0.19122,3.92724 0.573369,3.92724 1.543487,3.92724 0.970117,0 2.530348,0 4.089235,0"
+           id="path4487"
+           inkscape:connector-curvature="0"
+           inkscape:path-effect="#path-effect4489"
+           inkscape:original-d="m 40.301707,81.222842 c -0.818684,-2.65e-4 -1.638161,-2.65e-4 -2.456845,0 2.65e-4,0.409209 2.65e-4,0.818446 0,1.228422 0.456986,-2.64e-4 0.913773,-2.64e-4 1.370164,0 -0.03123,1.873868 -0.06273,3.748381 -0.09449,5.622396 -1.547325,0.850182 -3.094966,1.700656 -4.642767,2.551338 2.65e-4,7.853949 2.65e-4,15.708162 0,23.562642 0.38244,-2.6e-4 0.764589,-2.6e-4 1.146487,0 1.558337,-2.6e-4 3.118568,-2.6e-4 4.677455,0" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 40.301715,81.222842 c 0.818684,0 1.638161,0 2.047503,0.204605 0.409342,0.204604 0.409342,0.613841 0.180849,0.818829 -0.228493,0.204988 -0.68528,0.204988 -0.897729,1.14192 -0.21245,0.936932 -0.180947,2.811445 0.608438,4.173591 0.789385,1.362146 2.337026,2.212621 3.110951,6.56489 0.773926,4.35227 0.773926,12.206483 0.582706,16.133723 -0.19122,3.92724 -0.573369,3.92724 -1.543487,3.92724 -0.970117,0 -2.530348,0 -4.089235,0"
+           id="path4487-6"
+           inkscape:connector-curvature="0"
+           inkscape:path-effect="#path-effect4489-3"
+           inkscape:original-d="m 40.301715,81.222842 c 0.818684,-2.65e-4 1.638161,-2.65e-4 2.456845,0 -2.64e-4,0.409209 -2.64e-4,0.818446 0,1.228422 -0.456986,-2.64e-4 -0.913773,-2.64e-4 -1.370164,0 0.03123,1.873868 0.06273,3.748381 0.09449,5.622396 1.547325,0.850182 3.094966,1.700656 4.642767,2.551338 -2.65e-4,7.853949 -2.65e-4,15.708162 0,23.562642 -0.38244,-2.6e-4 -0.764589,-2.6e-4 -1.146487,0 -1.558337,-2.6e-4 -3.118568,-2.6e-4 -4.677455,0" />
+      </g>
+      <text
+         transform="rotate(90)"
+         id="text4515"
+         y="-37.513767"
+         x="92.047768"
+         style="font-style:normal;font-weight:normal;font-size:11.90625px;line-height:6.61458302px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:8.46666622px;stroke-width:0.26458332px"
+           y="-37.513767"
+           x="92.047768"
+           id="tspan4513"
+           sodipodi:role="line">BEER</tspan></text>
+    </g>
+  </g>
+</svg>
