@@ -1,0 +1,256 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
+    <script type="text/javascript" src="network.js" charset="UTF-8"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        #mynetwork {
+            width: 95%;
+            height: 80%;
+            border: 1px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+<div id="mynetwork"></div>
+<pre id="eventSpan"></pre>
+
+<script type="text/javascript">
+
+    // create a network
+    var container = document.getElementById('mynetwork');
+
+    // these are all options in full.
+    var options = {
+        edges:{
+            arrows: {
+                to:     {enabled: true,  scaleFactor:1, type:'arrow'},
+                middle: {enabled: false, scaleFactor:1, type:'arrow'},
+                from:   {enabled: false, scaleFactor:1, type:'arrow'}
+            },
+            arrowStrikethrough: true,
+            chosen: true,
+            color: {
+                color:'#848484',
+                highlight:'#848484',
+                hover: '#848484',
+                inherit: 'from',
+                opacity:1.0
+            },
+            dashes: false,
+            font: {
+                color: '#343434',
+                size: 14, // px
+                face: 'arial',
+                background: 'none',
+                strokeWidth: 2, // px
+                strokeColor: '#ffffff',
+                align: 'horizontal',
+                multi: false,
+                vadjust: 0,
+                bold: {
+                    color: '#343434',
+                    size: 14, // px
+                    face: 'arial',
+                    vadjust: 0,
+                    mod: 'bold'
+                },
+                ital: {
+                    color: '#343434',
+                    size: 14, // px
+                    face: 'arial',
+                    vadjust: 0,
+                    mod: 'italic',
+                },
+                boldital: {
+                    color: '#343434',
+                    size: 14, // px
+                    face: 'arial',
+                    vadjust: 0,
+                    mod: 'bold italic'
+                },
+                mono: {
+                    color: '#343434',
+                    size: 15, // px
+                    face: 'courier new',
+                    vadjust: 2,
+                    mod: ''
+                }
+            },
+            hidden: false,
+            hoverWidth: 1.5,
+            label: undefined,
+            labelHighlightBold: true,
+            length: undefined,
+            physics: true,
+            scaling:{
+                min: 1,
+                max: 15,
+                label: {
+                    enabled: true,
+                    min: 14,
+                    max: 30,
+                    maxVisible: 30,
+                    drawThreshold: 5
+                },
+                customScalingFunction: function (min,max,total,value) {
+                    if (max === min) {
+                        return 0.5;
+                    }
+                    else {
+                        var scale = 1 / (max - min);
+                        return Math.max(0,(value - min)*scale);
+                    }
+                }
+            },
+            selectionWidth: 1,
+            selfReferenceSize:20,
+            shadow:{
+                enabled: false,
+                color: 'rgba(0,0,0,0.5)',
+                size:10,
+                x:5,
+                y:5
+            },
+            smooth: {
+                enabled: true,
+                type: "dynamic",
+                roundness: 0.5
+            },
+            title:undefined,
+            value: undefined,
+            width: 1,
+            widthConstraint: false
+        },
+        nodes:{
+            borderWidth: 1,
+            borderWidthSelected: 2,
+            brokenImage:undefined,
+            chosen: true,
+            fixed: {
+                x:false,
+                y:false
+            },
+            font: {
+                color: '#343434',
+                size: 14, // px
+                face: 'arial',
+                background: 'none',
+                strokeWidth: 0, // px
+                strokeColor: '#ffffff',
+                align: 'center',
+                multi: false,
+                vadjust: 0,
+                bold: {
+                    color: '#343434',
+                    size: 14, // px
+                    face: 'arial',
+                    vadjust: 0,
+                    mod: 'bold'
+                },
+                ital: {
+                    color: '#343434',
+                    size: 14, // px
+                    face: 'arial',
+                    vadjust: 0,
+                    mod: 'italic',
+                },
+                boldital: {
+                    color: '#343434',
+                    size: 14, // px
+                    face: 'arial',
+                    vadjust: 0,
+                    mod: 'bold italic'
+                },
+                mono: {
+                    color: '#343434',
+                    size: 15, // px
+                    face: 'courier new',
+                    vadjust: 2,
+                    mod: ''
+                }
+            },
+            group: undefined,
+            heightConstraint: false,
+            hidden: false,
+            icon: {
+                face: 'FontAwesome',
+                code: undefined,
+                size: 50,  //50,
+                color:'#2B7CE9'
+            },
+            image: undefined,
+            label: undefined,
+            labelHighlightBold: true,
+            level: undefined,
+            mass: 1,
+            physics: true,
+            scaling: {
+                min: 10,
+                max: 30,
+                label: {
+                    enabled: false,
+                    min: 14,
+                    max: 30,
+                    maxVisible: 30,
+                    drawThreshold: 5
+                },
+                customScalingFunction: function (min,max,total,value) {
+                    if (max === min) {
+                        return 0.5;
+                    }
+                    else {
+                        var scale = 1 / (max - min);
+                        return Math.max(0,(value - min)*scale);
+                    }
+                }
+            },
+            shadow:{
+                enabled: false,
+                color: 'rgba(0,0,0,0.5)',
+                size:10,
+                x:5,
+                y:5
+            },
+            shape: 'dot',
+            shapeProperties: {
+                borderDashes: false, // only for borders
+                borderRadius: 6,     // only for box shape
+                interpolation: false,  // only for image and circularImage shapes
+                useImageSize: false,  // only for image and circularImage shapes
+                useBorderWithImage: false  // only for image shape
+            },
+            size: 25,
+            title: undefined,
+            value: undefined,
+            widthConstraint: false,
+            x: undefined,
+            y: undefined
+        }
+    };
+
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+
+
+    network.on("startStabilizing", function (params) {
+        document.getElementById('eventSpan').innerHTML = '<h3>Starting Stabilization</h3>';
+        console.log("started")
+    });
+    network.on("stabilizationProgress", function (params) {
+        document.getElementById('eventSpan').innerHTML = '<h3>Stabilization progress</h3>' + JSON.stringify(params, null, 4);
+        console.log("progress:",params);
+    });
+    network.on("stabilizationIterationsDone", function (params) {
+        document.getElementById('eventSpan').innerHTML = '<h3>Stabilization iterations complete</h3>';
+        console.log("finished stabilization interations");
+    });
+    network.on("stabilized", function (params) {
+        document.getElementById('eventSpan').innerHTML = '<h3>Stabilized!</h3>' + JSON.stringify(params, null, 4);
+        console.log("stabilized!", params);
+    });
+
+</script>
+</body>
+</html>
