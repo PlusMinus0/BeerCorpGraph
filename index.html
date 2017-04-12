@@ -9,10 +9,13 @@
     <title>BeerCorpGraph</title>
 </head>
 <body>
+<div class="navigation"><input type="text" id="search" title="Search"/></div>
 <div id="network"></div>
 <pre id="eventSpan"></pre>
 
 <script type="text/javascript">
+    document.getElementById("search").addEventListener("keyup", resultHighlight);
+
     var network;
     var allNodes;
     var highlightActive = false;
@@ -262,57 +265,91 @@
     }
 
     function neighbourhoodHighlight(params) {
-        var i, nodeId;
+        var nodeId;
         // if something is selected:
         if (params.nodes.length > 0) {
             highlightActive = true;
             var selectedNode = params.nodes[0];
 
-            // mark all nodes as hard to read.
-            for (nodeId in allNodes) {
-                if (allNodes.hasOwnProperty(nodeId)) {
-                    allNodes[nodeId].color = 'rgba(200,200,200,0.5)';
-                    if (allNodes[nodeId].hiddenLabel === undefined) {
-                        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
-                        allNodes[nodeId].label = undefined;
-                    }
-                }
-            }
-
             var allConnectedNodes = findAllParents(selectedNode);
             allConnectedNodes.push(selectedNode);
 
-            // Reset color of all parent nodes
-            for (i = 0; i < allConnectedNodes.length; i++) {
-                allNodes[allConnectedNodes[i]].color = undefined;
-                if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
-                    allNodes[allConnectedNodes[i]].label = allNodes[allConnectedNodes[i]].hiddenLabel;
-                    allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
-                }
-            }
+            greyOutRest(allConnectedNodes);
         }
         else if (highlightActive === true) {
-            // reset all nodes
-            for (nodeId in allNodes) {
-                if (allNodes.hasOwnProperty(nodeId)) {
-                    allNodes[nodeId].color = undefined;
-                    if (allNodes[nodeId].hiddenLabel !== undefined) {
-                        allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
-                        allNodes[nodeId].hiddenLabel = undefined;
-                    }
-                }
-            }
-            highlightActive = false
+            resetHighlight()
         }
+    }
 
+    function updateNodes() {
         // Update nodes
         var updateArray = [];
-        for (nodeId in allNodes) {
+        for (var nodeId in allNodes) {
             if (allNodes.hasOwnProperty(nodeId)) {
                 updateArray.push(allNodes[nodeId]);
             }
         }
         nodes.update(updateArray);
+    }
+
+    function resultHighlight() {
+        highlightActive = true;
+        var searchString = document.getElementById("search").value.toLowerCase();
+
+        // get a JSON object
+        var foundNodes = nodes.get({filter: function (item) {
+            return item.id.toLowerCase().includes(searchString)
+        }, returnType:"Object"});
+
+        var highlightArray = [];
+        for (var nodeId in foundNodes) {
+            if (foundNodes.hasOwnProperty(nodeId)) {
+                highlightArray.push(foundNodes[nodeId].id);
+            }
+        }
+
+        greyOutRest(highlightArray);
+    }
+
+    function greyOutRest(highlightNodes) {
+        console.log(highlightNodes);
+        // mark all nodes as hard to read.
+        for (var nodeId in allNodes) {
+            if (allNodes.hasOwnProperty(nodeId)) {
+                allNodes[nodeId].color = 'rgba(200,200,200,0.5)';
+                if (allNodes[nodeId].hiddenLabel === undefined) {
+                    allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+                    allNodes[nodeId].label = undefined;
+                }
+            }
+        }
+
+        // Reset color of all parent nodes
+        for (var i = 0; i < highlightNodes.length; i++) {
+            allNodes[highlightNodes[i]].color = undefined;
+            if (allNodes[highlightNodes[i]].hiddenLabel !== undefined) {
+                allNodes[highlightNodes[i]].label = allNodes[highlightNodes[i]].hiddenLabel;
+                allNodes[highlightNodes[i]].hiddenLabel = undefined;
+            }
+        }
+
+        updateNodes();
+    }
+
+    function resetHighlight() {
+        // reset all nodes
+        for (nodeId in allNodes) {
+            if (allNodes.hasOwnProperty(nodeId)) {
+                allNodes[nodeId].color = undefined;
+                if (allNodes[nodeId].hiddenLabel !== undefined) {
+                    allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
+                    allNodes[nodeId].hiddenLabel = undefined;
+                }
+            }
+        }
+        highlightActive = false;
+
+        updateNodes();
     }
 
     function findAllParents(node) {
