@@ -188,7 +188,7 @@
                 physics: true,
                 scaling: {
                     min: 10,
-                    max: 30,
+                    max: 50,
                     label: {
                         enabled: false,
                         min: 14,
@@ -197,6 +197,10 @@
                         drawThreshold: 5
                     },
                     customScalingFunction: function (min, max, total, value) {
+                        max = Math.log10(max);
+                        min = Math.log10(min);
+                        value = Math.log10(value);
+
                         if (max === min) {
                             return 0.5;
                         }
